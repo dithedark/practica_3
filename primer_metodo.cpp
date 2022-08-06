@@ -55,42 +55,105 @@ void CdecimalM1(char *bin ,unsigned *letra)
     }
 }
 
-void codificacionM1(char *datos,unsigned long  tamano,unsigned contra)
+void codificacionM1(char *datos,unsigned long  tamano,unsigned contra,unsigned short caso,unsigned long long *puntero,bool deco)
 {
-    tamano= tamano*8;
 
-
-
-
-}
-
-unsigned short contador(char *grupo,unsigned tamano)
-{
-    unsigned short retorno;
-    unsigned cantidad1=0,cantidad0=0;
-
-    for (unsigned var = 0; var < tamano; ++var)
+    if(tamano*8> *puntero)
     {
-        if(grupo[var]=='1')
+
+        unsigned short metodo=0;
+        if(deco)
         {
-            cantidad1++;
+            unsigned  cantidad1=0,cantidad0=0;
+
+
+            for (unsigned var = 0; var < contra; ++var)
+            {
+                if(datos[*puntero+var]=='1') cantidad1++;
+
+                else cantidad0++;
+            }
+            if(cantidad0>cantidad1) metodo=1;
+            else if(cantidad0 < cantidad1) metodo=2;
+        }
+
+
+        if((*puntero+contra)>=tamano*8)
+        {
+            aplicaso(caso,datos,(tamano*8)-*puntero,puntero);
         }
         else
         {
-            cantidad0++;
+            aplicaso(caso,datos,contra,puntero);
         }
-    }
-    if(cantidad0==cantidad1)
-    {
-        retorno=0;
-    }
-    else ()
+        if(not(deco))
+        {
+            unsigned  cantidad1=0,cantidad0=0;
 
 
-    return retorno;
+            for (unsigned var = 0; var < contra; ++var)
+            {
+                if(datos[*puntero+var-contra]=='1') cantidad1++;
+
+                else cantidad0++;
+            }
+
+            if(cantidad0>cantidad1) metodo=1;
+            else if(cantidad0 < cantidad1) metodo=2;
+        }
+
+        codificacionM1(datos,tamano,contra,metodo,puntero,deco);
+
+    }
 }
 
 
+void aplicaso(unsigned short caso,char *datos, unsigned contra,unsigned long long *puntero)
+{
+    for (unsigned var = 0,con=0; var < contra; ++var, *puntero=*puntero+1)
+    {
+        if(con==caso)
+        {
+            if(datos[*puntero]=='0') datos[*puntero]='1';
+            else datos[*puntero]='0';
+            con=0;
+        }
+        else con++;
+
+    }
+}
+
+
+void escribirM1 ( char *datos, char *nombre, unsigned long  tamano)
+{
+    char byt[8];
+
+    for (unsigned var = 0,ocho=0,tam=0,num; tam < tamano; ++var)
+    {
+        if(ocho<8)
+        {
+            byt[ocho]=datos[var];
+            ocho++;
+        }
+        else
+        {
+            CdecimalM1(byt,&num);
+            cout<<endl;
+            cout<<num;
+            datos[tam]=char(num);
+            tam++;
+            byt[0]=datos[var];
+            ocho=1;
+        }
+
+    }
+    datos[tamano]='\0';
+    cout<<endl;
+    fstream text(nombre, fstream::out  |fstream::binary);
+    text.write( datos,tamano);
+    //text<< datos;
+    text.close();
+}
 
 
 

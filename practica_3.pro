@@ -5,7 +5,9 @@ CONFIG -= qt
 
 SOURCES += \
         main.cpp \
-        primer_metodo.cpp
+        primer_metodo.cpp \
+        segundo_metodo.cpp
 
 HEADERS += \
-    primer_metodo.h
+    primer_metodo.h \
+    segundo_metodo.h
