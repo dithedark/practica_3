@@ -1,15 +1,17 @@
 
 
 #include "primer_metodo.h"
+#include "segundo_metodo.h"
 using namespace std;
 
 int main()
 {
-    char nombre[]="texto.txt";
-    unsigned  long    tamano=tam(nombre);
-    char *datos= new char ((tamano*8)+1);
-    datos[tamano]='\0';
+    //char nombre[]="texto.txt";
+    //unsigned  long    tamano=tam(nombre);
     unsigned contra=5;
+    /*char *datos= new char ((tamano*8)+1);
+    datos[tamano]='\0';
+
 
     lecturaM1(datos,nombre,tamano);
 
@@ -26,7 +28,15 @@ int main()
 
 
 
-    delete datos ;
+    delete datos ;*/
+
+
+    string texto,nombre="texto.txt";
+    unsigned long long tamano;
+                texto=lecturam2(nombre,&tamano,0);
+
+
+                m2_codificacion(tamano,contra,nombre,texto);
 
     return 0;
 }

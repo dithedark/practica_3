@@ -138,8 +138,7 @@ void escribirM1 ( char *datos, char *nombre, unsigned long  tamano)
         else
         {
             CdecimalM1(byt,&num);
-            cout<<endl;
-            cout<<num;
+
             datos[tam]=char(num);
             tam++;
             byt[0]=datos[var];
